@@ -15,7 +15,7 @@ export class AddCanvasBoard {
           </svg>
           </button>
         </div>
-      `)
+      `);
     }
 
     addCanvasBoardToolbox = (uid) => {
@@ -62,7 +62,7 @@ export class AddCanvasBoard {
       const canvas = new fabric.Canvas(`canvas-${uid}`);
       const DRAWING_MODE = 'drawing';
       const MOVE_MODE = 'move';
-      var canvasMode = DRAWING_MODE;
+      let canvasMode = DRAWING_MODE;
       canvas.isDrawingMode = true;
       canvas.setHeight('400');
       canvas.setWidth(parentWidth);
@@ -82,7 +82,7 @@ export class AddCanvasBoard {
       });
 
       $(`#canvas-menu-box-delete-${uid}`).on('click', () => {
-        var shape = canvas.getActiveObject();
+        let shape = canvas.getActiveObject();
         canvas.remove(shape);
       });
 
@@ -93,16 +93,16 @@ export class AddCanvasBoard {
       });
 
       $(`#canvas-menu-box-size-${uid}`).on('change', () => {
-        var width = $(`#canvas-menu-box-size-${uid} option:selected`).val()
+        let width = $(`#canvas-menu-box-size-${uid} option:selected`).val()
         canvas.freeDrawingBrush.width = parseInt(width);
       });
 
-      canvas.on('selection:created', function() {
-        $(`#canvas-menu-box-delete-${uid}`).prop('disabled', false);
-      });
+      canvas.on('selection:created', () => {
+          $(`#canvas-menu-box-delete-${uid}`).prop('disabled', false);
+        });
 
-      canvas.on('selection:cleared', function() {
-        $(`#canvas-menu-box-delete-${uid}`).prop('disabled', true);
-      });
+      canvas.on('selection:cleared', () => {
+          $(`#canvas-menu-box-delete-${uid}`).prop('disabled', true);
+        });
     }
 }
