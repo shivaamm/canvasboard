@@ -18,13 +18,76 @@ $canvasboard-accent: mat-palette($mat-pink, A200, A100, A400);
 // The warn palette is optional (defaults to red).
 $canvasboard-warn: mat-palette($mat-red);
 
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$canvasboard-theme: mat-light-theme((
+  color: (
+    primary: $canvasboard-primary,
+    accent: $canvasboard-accent,
+    warn: $canvasboard-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($canvasboard-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$canvasboard-primary: mat-palette($mat-indigo);
+$canvasboard-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$canvasboard-warn: mat-palette($mat-red);
+
 // Create the theme object (a Sass map containing all of the palettes).
 $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $canvasboard-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($canvasboard-theme);
+// @include angular-material-theme($canvasboard-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$canvasboard-primary: mat-palette($mat-indigo);
+$canvasboard-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$canvasboard-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $canvasboard-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include angular-material-theme($canvasboard-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -125,8 +188,39 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
   display: none;
 }
 
+// MarkDown
+.named-fence-block {
+  background-color:#ffdde1;
+  position: relative;
+  padding-top: 2em;
+}
+pre {
+  background-color:#f6f8fa;
+  padding: 16px;
+overflow: auto;
+font-size: 85%;
+border-radius: 6px;
+}
+ 
+.named-fence-filename {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 4px;
+  font-weight: bold;
+  color: #000000;
+  background: #c0c0c0;
+  opacity: 0.6;
+}
+.markdown-body h1,h2,h3 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+
+}
+
 // ........................DASHBOARD...........................
-.folder-box {
+.folder-box,
+.file-box {
   padding: 1rem 1rem;
   background: #53A453;
   background: #ee9ca7;  /* fallback for old browsers */
@@ -137,17 +231,24 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
   margin:10px;
   margin-left: 0px;
 
-  .folder-title {
+  .folder-title,
+  .file-title {
     font-family: Questrial,sans-serif;
     margin-top: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 15rem;
   }
 
-  .folder-discription {
+  .folder-description,
+  .file-description {
     font-family: Questrial,sans-serif;
   }
 }
 
-.new-folder {
+.new-folder,
+.new-file {
   text-align: center;
   background: rgb(241, 241, 241);
   padding: 1rem 1rem;
@@ -157,7 +258,8 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
   margin-left: 0px;
 }
 
-.folder-box:hover {
+.folder-box:hover,
+.file-box:hover {
   transform:translateY(-.2rem);
 }
 
@@ -168,6 +270,9 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
   grid-template-columns: repeat(3,1fr);
 }
 #user-folders{
+  position: relative;
+}
+#user-files {
   position: relative;
 }
 #not-found{
@@ -207,7 +312,7 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 990px) {
   .cbff-container {
     grid-template-columns: repeat(2,1fr);
   }
@@ -240,5 +345,5 @@ $canvasboard-theme: mat-light-theme($canvasboard-primary, $canvasboard-accent, $
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
